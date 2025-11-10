@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala 6B: Interfaces Hápticas y Sensoriales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8B1538 0%, #A91D3A 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #8B1538;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #A91D3A;
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+        
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            color: #8B1538;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #A91D3A;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #A91D3A;
+            font-size: 1.4em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 3px solid #A91D3A;
+            margin: 20px 0;
+        }
+        
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #8B1538;
+            border: 3px solid white;
+        }
+        
+        .date {
+            background: #8B1538;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .task-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .task-list li {
+            padding: 10px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-left: 4px solid #A91D3A;
+            border-radius: 5px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .team-card {
+            background: linear-gradient(135deg, #8B1538 0%, #A91D3A 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(139, 21, 56, 0.3);
+        }
+        
+        .team-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+        }
+        
+        .team-card ul {
+            list-style: none;
+        }
+        
+        .team-card li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .team-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .materials-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .materials-table th {
+            background: #8B1538;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .materials-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .materials-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #8B1538 0%, #A91D3A 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .highlight-box strong {
+            font-size: 1.1em;
+        }
+        
+        .tips-box {
+            background: #fff5f5;
+            border: 2px solid #A91D3A;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .tips-box h4 {
+            color: #8B1538;
+            margin-bottom: 10px;
+        }
+        
+        .budget-total {
+            background: #8B1538;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .era-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .era-card {
+            background: white;
+            border: 3px solid #A91D3A;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .era-card h4 {
+            color: #8B1538;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .era-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖐️ Sala 6B: Interfaces Hápticas y Sensoriales</h1>
+            <p class="subtitle">Evolución de las interfaces entre humanos y computadoras</p>
+        </header>
+
+        <div class="section">
+            <h2>📋 Descripción del Proyecto</h2>
+            <p>Este proyecto tiene como objetivo crear una experiencia educativa e interactiva que muestre la evolución de las interfaces humano-computadora, desde los primeros teclados mecánicos hasta las tecnologías hápticas y de realidad virtual actuales.</p>
+            
+            <div class="highlight-box">
+                <strong>🎯 Objetivo Principal:</strong> Diseñar una experiencia interactiva que combine una aplicación moderna en Flet ("ChronoTouch"), una maqueta digital histórica en CreatiCode, y un control físico gigante conectado a Makey Makey para demostrar la evolución sensorial de las interfaces tecnológicas.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎮 Las 4 Eras Tecnológicas</h2>
+            <div class="era-grid">
+                <div class="era-card">
+                    <div class="era-icon">⌨️</div>
+                    <h4>Era 1: Teclado Mecánico</h4>
+                    <p><strong>1980s</strong></p>
+                    <p>Solo entrada de texto</p>
+                    <p style="color: #4A90E2; font-weight: bold;">Feedback: Click</p>
+                </div>
+                <div class="era-card">
+                    <div class="era-icon">🖱️</div>
+                    <h4>Era 2: Mouse & GUI</h4>
+                    <p><strong>1990s</strong></p>
+                    <p>Apuntar y hacer clic</p>
+                    <p style="color: #E94B3C; font-weight: bold;">Feedback: Hover</p>
+                </div>
+                <div class="era-card">
+                    <div class="era-icon">📱</div>
+                    <h4>Era 3: Pantalla Táctil</h4>
+                    <p><strong>2000s</strong></p>
+                    <p>Tocar directamente</p>
+                    <p style="color: #50C878; font-weight: bold;">Feedback: Vibrate</p>
+                </div>
+                <div class="era-card">
+                    <div class="era-icon">🥽</div>
+                    <h4>Era 4: Háptico VR</h4>
+                    <p><strong>2020s</strong></p>
+                    <p>Sentir lo virtual</p>
+                    <p style="color: #9B59B6; font-weight: bold;">Feedback: Immersive</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>👥 Equipo de Trabajo</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <h4>👨‍💻 López López Mario Ángel</h4>
+                    <ul>
+                        <li>Diseño y construcción del control físico gigante</li>
+                        <li>Recopilación de información histórica visual</li>
+                        <li>Preparación de materiales conductivos y cableado</li>
+                        <li>Documentación fotográfica del proceso</li>
+                        <li>Apoyo en redacción del informe</li>
+                    </ul>
+                </div>
+                <div class="team-card">
+                    <h4>💻 Macías Pérez Ismael</h4>
+                    <ul>
+                        <li>Desarrollo de la aplicación ChronoTouch en Flet</li>
+                        <li>Integración de sonidos y animaciones</li>
+                        <li>Pruebas con Makey Makey</li>
+                        <li>Supervisión de compatibilidad técnica</li>
+                        <li>Documentación técnica del código</li>
+                    </ul>
+                </div>
+                <div class="team-card">
+                    <h4>🎨 Martínez Martínez Leonardo César</h4>
+                    <ul>
+                        <li>Coordinación general del proyecto</li>
+                        <li>Diseño de la maqueta digital en CreatiCode</li>
+                        <li>Control de calendario y avances</li>
+                        <li>Unificación de presentaciones</li>
+                        <li>Preparación de la exposición final</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📅 Cronograma de Trabajo</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="date">📍 13 de Noviembre - Primera Revisión (Avance Funcional 1)</div>
+                    <h3>Objetivo: Mostrar progreso estructural, investigaciones y primeras versiones digitales</h3>
+                    <ul class="task-list">
+                        <li><strong>Mario López:</strong> Investigación inicial + línea de tiempo histórica (cronología visual de periféricos 1980→2020)</li>
+                        <li><strong>Ismael Macías:</strong> Prototipo básico de Flet (menú principal, navegación entre eras, detección básica Makey Makey)</li>
+                        <li><strong>Leonardo Martínez:</strong> Storyboard/boceto CreatiCode (diseño de 4 escenas con animaciones simples)</li>
+                        <li><strong>Leonardo (coordinador):</strong> Presentación 1 integrando avances visuales (imágenes, diagramas, código, bocetos)</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">📍 20 de Noviembre - Segunda Revisión (Avance Integrado 2)</div>
+                    <h3>Objetivo: Integrar ambas plataformas y maqueta física en construcción</h3>
+                    <ul class="task-list">
+                        <li><strong>Mario López:</strong> Maqueta física en prototipo (pads ASDF, tapete conductivo, 4 pads direccionales + documentación con fotos)</li>
+                        <li><strong>Ismael Macías:</strong> ChronoTouch con audio y 4 eras funcionales (juego completo con sonidos, tiempo y puntuación)</li>
+                        <li><strong>Leonardo Martínez:</strong> Maqueta digital CreatiCode interactiva (proyecto finalizado con Makey Makey, exportar enlace o video)</li>
+                        <li><strong>Todos:</strong> Presentación 2 con demostración conjunta (30% teoría + 70% demostración técnica)</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">📍 27 de Noviembre - Presentación Final</div>
+                    <h3>Objetivo: Integrar todos los componentes en una única experiencia interactiva educativa</h3>
+                    <ul class="task-list">
+                        <li><strong>Mario López:</strong> Instalación lista y funcional (maqueta en mesa con 5 pads + paneles impresos con línea de tiempo)</li>
+                        <li><strong>Ismael Macías:</strong> Versión Flet final (código sin errores, interfaz mejorada, integración Makey Makey)</li>
+                        <li><strong>Leonardo Martínez:</strong> Versión CreatiCode final (animaciones completas + sonidos + guión correcto)</li>
+                        <li><strong>Todos:</strong> Presentación final completa (Introducción → Evolución → Demostración → Conclusión)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💻 Componentes de la Aplicación ChronoTouch (Flet)</h2>
+            <h3>Funcionalidades Implementadas:</h3>
+            <ul class="task-list">
+                <li>⌨️ <strong>Era 1 - Teclado Mecánico:</strong> Juego de presionar teclas A/S/D/F con indicadores visuales y sonidos de éxito/error</li>
+                <li>🖱️ <strong>Era 2 - Mouse & GUI:</strong> Hacer clic en círculos que aparecen aleatoriamente en pantalla</li>
+                <li>📱 <strong>Era 3 - Pantalla Táctil:</strong> Reventar burbujas que aparecen dinámicamente con efectos de explosión</li>
+                <li>🥽 <strong>Era 4 - Háptico VR:</strong> Memorizar y repetir patrones de colores y sonidos (tipo Simon)</li>
+                <li>🎵 <strong>Sistema de Audio:</strong> Sonidos integrados online (success, error, click, bubble, whoosh, coin, tick)</li>
+                <li>🏆 <strong>Sistema de Puntuación:</strong> Acumulación de puntos totales entre todas las eras</li>
+                <li>🎮 <strong>Integración Makey Makey:</strong> Mapeo completo de teclas para control físico</li>
+            </ul>
+
+            <div class="tips-box">
+                <h4>🎮 Configuración Makey Makey para Flet:</h4>
+                <p><strong>Teclas Mapeadas:</strong></p>
+                <ul>
+                    <li><strong>Flecha Arriba (↑):</strong> Tecla A (Era 1)</li>
+                    <li><strong>Flecha Abajo (↓):</strong> Tecla S (Era 1)</li>
+                    <li><strong>Flecha Izquierda (←):</strong> Tecla D (Era 1)</li>
+                    <li><strong>Flecha Derecha (→):</strong> Tecla F (Era 1)</li>
+                    <li><strong>Espacio:</strong> Click general / Tap (Eras 2 y 3)</li>
+                    <li><strong>4 Pads direccionales:</strong> Patrón VR (Era 4)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🕹️ Maqueta Digital en CreatiCode</h2>
+            
+            <h3>Descripción General:</h3>
+            <p>Proyecto interactivo en CreatiCode (basado en Scratch) que ilustra con sentido histórico y educativo la evolución de los periféricos e interfaces desde los años 80 hasta la actualidad.</p>
+
+            <h3>Estructura de las 4 Escenas:</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Escena 1 - 1980s (Teclado Mecánico):</strong>
+                    <p>Fondo de oficina antigua con computadora beige. Al presionar Flecha ↑, suena "click clack" y aparece texto: "La computadora solo entendía texto. Así empezó todo."</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Escena 2 - 1990s (Mouse & GUI):</strong>
+                    <p>Aparece un ratón con cable apuntando a iconos. Al presionar Flecha ↓, el cursor se mueve y hace clic. Texto: "Nace el puntero y las interfaces gráficas."</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Escena 3 - 2000s (Pantalla Táctil):</strong>
+                    <p>Un teléfono se ilumina y reacciona al tacto. Al presionar Flecha ←, activa sonidos "pop" y animaciones burbuja. Texto: "Ahora tocamos la información directamente."</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Escena 4 - 2020s (Háptico VR):</strong>
+                    <p>Personaje con gafas VR vibra. Al presionar Flecha →, controla movimiento o activa vibración. Texto: "Nuestro cuerpo es la interfaz."</p>
+                </div>
+            </div>
+
+            <h3>Proceso de Creación en CreatiCode:</h3>
+            <ul class="task-list">
+                <li><strong>Planificación:</strong> Diseñar 4 escenarios (uno por era) con sprites representativos</li>
+                <li><strong>Mapeo de teclas:</strong> Asignar Flecha ↑/↓/←/→ a cada escena</li>
+                <li><strong>Animaciones:</strong> Añadir sprites antiguos (PC ochentera, ratón, smartphone, casco VR)</li>
+                <li><strong>Sonidos:</strong> Efectos de escritura, clic, pop y vibración desde biblioteca Scratch</li>
+                <li><strong>Integración física:</strong> Conectar pads de metal a las flechas del Makey Makey</li>
+                <li><strong>Pruebas:</strong> Validar que ambos proyectos (Flet y CreatiCode) responden a las mismas teclas físicas</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎮 Construcción del Control Físico Gigante</h2>
+            
+            <h3>Objetivo:</h3>
+            <p>Diseñar y construir un <strong>control de videojuego gigante</strong> (aprox. 80 cm × 40 cm) fabricado con cartón recubierto de aluminio, que funcione como interfaz háptica para los juegos Flet y CreatiCode mediante conexiones Makey Makey.</p>
+
+            <h3>Diseño Funcional:</h3>
+            <div class="tips-box">
+                <h4>Distribución de Botones:</h4>
+                <ul>
+                    <li>🔵 <strong>4 pads frontales grandes:</strong> Etiquetados A / S / D / F (Era 1 Teclado)</li>
+                    <li>🟢 <strong>1 espacio táctil central:</strong> "Tap" (Era 3 Táctil)</li>
+                    <li>🟣 <strong>4 direcciones tipo cruz:</strong> ↑ ↓ ← → (Era 4 VR)</li>
+                    <li>🔴 <strong>1 zona lateral:</strong> "Click" (Era 2 Mouse)</li>
+                    <li>⚫ <strong>Barra de tierra (GND):</strong> Zona conductiva para manos del usuario</li>
+                </ul>
+            </div>
+
+            <h3>Etapas de Construcción:</h3>
+            <table class="materials-table">
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Actividades</th>
+                        <th>Responsable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1️⃣ Diseño del panel</strong></td>
+                        <td>Boceto en papel milimétrico, medición y distribución de botones, definir colores por era</td>
+                        <td>Leonardo y Mario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2️⃣ Corte y armado</strong></td>
+                        <td>Corte del cartón y armado de estructuras con silicón. Refuerzo de base</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3️⃣ Recubrimiento conductivo</strong></td>
+                        <td>Colocar papel aluminio o cinta de cobre sobre áreas de contacto (botones)</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4️⃣ Cableado Makey Makey</strong></td>
+                        <td>Conectar con pinzas cocodrilo cada botón a una entrada Makey, y tierra común</td>
+                        <td>Ismael</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5️⃣ Pruebas de conexión</strong></td>
+                        <td>Probar con Flet y CreatiCode que todos los botones funcionan</td>
+                        <td>Ismael y Leonardo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>6️⃣ Decoración</strong></td>
+                        <td>Pintura, etiquetas, luces y textos explicativos ("Era 1", "Era 2"…)</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>7️⃣ Registro del proceso</strong></td>
+                        <td>Fotografías del armado, esquemas de conexión y video corto para presentación</td>
+                        <td>Leonardo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ Materiales y Presupuesto</h2>
+            
+            <table class="materials-table">
+                <thead>
+                    <tr>
+                        <th>Material</th>
+                        <th>Cantidad</th>
+                        <th>Costo Estimado (MXN)</th>
+                        <th>Responsable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Makey Makey (ya disponible)</td>
+                        <td>1</td>
+                        <td>$0</td>
+                        <td>Equipo</td>
+                    </tr>
+                    <tr>
+                        <td>Planchas de cartón grueso (80x50 cm)</td>
+                        <td>2</td>
+                        <td>$100</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td>Papel aluminio o cinta de cobre</td>
+                        <td>1 rollo</td>
+                        <td>$80</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td>Foam board o cartulina decorativa</td>
+                        <td>2-3</td>
+                        <td>$120</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td>Cinta masking y aislante</td>
+                        <td>1 rollo c/u</td>
+                        <td>$60</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td>Cables con pinza cocodrilo</td>
+                        <td>8-12</td>
+                        <td>$150</td>
+                        <td>Ismael</td>
+                    </tr>
+                    <tr>
+                        <td>Pinturas acrílicas (colores por era)</td>
+                        <td>4-5</td>
+                        <td>$200</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td>LEDs decorativos (opcional)</td>
+                        <td>4-6</td>
+                        <td>$100</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td>Tijeras, cutter, regla, silicón</td>
+                        <td>varios</td>
+                        <td>$80</td>
+                        <td>Mario</td>
+                    </tr>
+                    <tr>
+                        <td>Impresiones (infografías, carteles, línea de tiempo)</td>
+                        <td>10-15</td>
+                        <td>$250</td>
+                        <td>Todos</td>
+                    </tr>
+                    <tr>
+                        <td>Elementos decorativos (figuras, etiquetas)</td>
+                        <td>varios</td>
+                        <td>$110</td>
+                        <td>Mario</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="budget-total">
+                💰 PRESUPUESTO TOTAL: $1,250 MXN
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📖 Investigaciones Complementarias</h2>
+            <p>Cada integrante debe aportar al menos <strong>una diapositiva documentada</strong> sobre estos temas:</p>
+            
+            <ul class="task-list">
+                <li><strong>Mario López:</strong> Materiales conductivos no convencionales y aplicaciones Makey Makey en arte y educación</li>
+                <li><strong>Ismael Macías:</strong> Programación de interfaz gráfica en Flet y detección de entradas físicas</li>
+                <li><strong>Leonardo Martínez:</strong> Historia de las interfaces hápticas y su impacto en la experiencia del usuario</li>
+            </ul>
+
+            <h3>Temas Generales a Investigar:</h3>
+            <ul class="task-list">
+                <li>📚 Evolución de periféricos de entrada: teclado, mouse, pantallas táctiles, sensores hápticos</li>
+                <li>🔌 Historia de Makey Makey: cómo convierte conductividad en señales digitales</li>
+                <li>🖐️ Concepto de retroalimentación háptica: tacto vs sensorialidad en realidad virtual</li>
+                <li>🎓 Aplicaciones educativas de las interfaces interactivas</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎤 Estructura de las Presentaciones</h2>
+            
+            <h3>Primera Revisión (13 Nov) - Exposición Oral:</h3>
+            <ul class="task-list">
+                <li><strong>Introducción y objetivos</strong> (Leonardo) - 2 min</li>
+                <li><strong>Línea de tiempo histórica</strong> (Mario) - 3 min</li>
+                <li><strong>Demostración prototipo Flet</strong> (Ismael) - 3 min</li>
+                <li><strong>Boceto CreatiCode</strong> (Leonardo) - 2 min</li>
+                <li><strong>Preguntas y respuestas</strong> - 2 min</li>
+            </ul>
+
+            <h3>Segunda Revisión (20 Nov) - Exposición Oral:</h3>
+            <ul class="task-list">
+                <li><strong>Resumen de avances</strong> (Leonardo) - 2 min</li>
+                <li><strong>Demostración Flet completo con Makey Makey</strong> (Ismael) - 5 min</li>
+                <li><strong>Presentación maqueta física en construcción</strong> (Mario) - 4 min</li>
+                <li><strong>Demostración CreatiCode</strong> (Leonardo) - 3 min</li>
+                <li><strong>Preguntas y respuestas</strong> - 1 min</li>
+            </ul>
+
+            <h3>Presentación Final (27 Nov) - Exhibición:</h3>
+            <ul class="task-list">
+                <li><strong>Introducción y contexto</strong> (Leonardo) - 3 min</li>
+                <li><strong>Demostración modo CreatiCode</strong> (Leonardo) - 4 min</li>
+                <li><strong>Cambio a modo Flet</strong> (Ismael) - 5 min</li>
+                <li><strong>Explicación física Makey Makey</strong> (Mario) - 4 min</li>
+                <li><strong>Interacción con público</strong> (Todos) - 3 min</li>
+                <li><strong>Conclusiones</strong> (Todos) - 1 min</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>✅ Estrategias de Gestión del Equipo</h2>
+            
+            <div class="tips-box">
+                <h4>📱 Comunicación:</h4>
+                <ul>
+                    <li>Crear grupo de WhatsApp para actualizaciones diarias</li>
+                    <li>Reuniones virtuales cada 3 días (15-20 minutos)</li>
+                    <li>Compartir avances mediante fotos/videos</li>
+                </ul>
+            </div>
+
+            <div class="tips-box">
+                <h4>📝 Seguimiento de Tareas:</h4>
+                <ul>
+                    <li>Checklist compartido en Google Docs o Notion</li>
+                    <li>Cada miembro actualiza su progreso diariamente</li>
+                    <li>Alertas 2 días antes de cada fecha de revisión</li>
+                </ul>
+            </div>
+
+            <div class="tips-box">
+                <h4>🎯 Responsabilidad Individual:</h4>
+                <ul>
+                    <li>Cada miembro prepara su reporte individual para las exposiciones</li>
+                    <li>Documentar el proceso con fotos y notas</li>
+                    <li>Tener respaldo de todo el trabajo realizado</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🌟 Filosofía del Proyecto</h2>
+            
+            <div class="highlight-box">
+                <p><strong>🖐️ SALA 6B une tres dimensiones:</strong></p>
+                <p>• El <strong>tacto físico</strong> (control de cartón con Makey Makey)</p>
+                <p>• La <strong>memoria histórica</strong> (maqueta CreatiCode)</p>
+                <p>• Y la <strong>interactividad moderna</strong> (app Flet)</p>
+                <br>
+                <p>El visitante siente cómo el pasado y el presente tecnológico se tocan literalmente con las manos.</p>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>🤝 El trabajo en equipo es la clave</strong></p>
+                <p>Un proyecto exitoso no depende de la velocidad de cada integrante, sino de la sincronía del conjunto. En SALA 6B cada miembro aporta desde su área — quien diseña, quien programa y quien coordina — para crear una experiencia que conecte el pasado y el presente del tacto tecnológico.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>🖐️ Proyecto desarrollado para el Museo de la Informática</p>
+            <p>Sala 6B: Interfaces Hápticas y Sensoriales</p>
+            <p><strong>¡Juntos crearemos una experiencia que toca el futuro!</strong></p>
+        </footer>
+    </div>
+</body>
+</html>
